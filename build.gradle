@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "$lombokPluginVersion"
+    id 'org.springframework.boot' version "$springPluginVersion"
+    id 'io.spring.dependency-management' version "$springDependencyPluginVersion"
+}
+
+group = 'org.edoatley'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
