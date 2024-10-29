@@ -1,4 +1,4 @@
-package org.edoatley.ai.poetry.controller;
+package org.edoatley.ai.poetry.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.edoatley.ai.poetry.model.Poetry;
