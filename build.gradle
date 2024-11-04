@@ -26,8 +26,24 @@ dependencies {
 
     // AI
     implementation platform("org.springframework.ai:spring-ai-bom:$springAIVersion")
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
-    implementation 'org.springframework.ai:spring-ai-azure-openai-spring-boot-starter'
+    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter' // when we use OpenAI
+    implementation 'org.springframework.ai:spring-ai-azure-openai-spring-boot-starter' // when we use Azure
+
+// start linux x86 workaround see https://github.com/spring-projects/spring-ai/issues/1371
+    implementation('org.springframework.ai:spring-ai-transformers-spring-boot-starter') {
+        exclude group: 'ai.djl.pytorch', module: 'pytorch-engine'
+        exclude group: 'ai.djl', module: 'api'
+        exclude group: 'ai.djl', module: 'model-zoo'
+        exclude group: 'ai.djl.huggingface', module: 'tokenizers'
+    }
+    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"
+    implementation "ai.djl:api:$djlVersion"
+    implementation "ai.djl:model-zoo:$djlVersion"
+    implementation "ai.djl.huggingface:tokenizers:$djlVersion"
+// end workaround
+
+    implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+    implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
     // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
