@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,20 +21,29 @@ class ActuatorTest {
     @Test
     void checkInfo(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/actuator/info"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{}"));
+                .andExpectAll(
+                    status().isOk(),
+                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)),
+                    content().string("{}")
+                );
     }
     @Test
     void checkHealth(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/actuator/health"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"status\":\"UP\"}"));
+                .andExpectAll(
+                    status().isOk(),
+                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)),
+                    content().string("{\"status\":\"UP\"}")
+                )
+                .andDo(MockMvcResultHandlers.print()); // adding this to debug
     }
 
     @Test
     void checkEnv(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/actuator/env"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)));
+                .andExpectAll(
+                    status().isOk(),
+                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON))
+                );
     }
 }
