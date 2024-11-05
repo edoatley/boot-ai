@@ -5,8 +5,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-import java.util.Arrays;
-
 public class IsHaiku extends TypeSafeMatcher<String> {
 
     public static final String LINE_BREAK = "\n";

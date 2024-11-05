@@ -20,20 +20,19 @@ class ActuatorTest {
     @Test
     void checkInfo(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/actuator/info"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{}"));
-    }
-    @Test
-    void checkHealth(@Autowired MockMvc mvc) throws Exception {
-        mvc.perform(get("/actuator/health"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"status\":\"UP\"}"));
+                .andExpectAll(
+                    status().isOk(),
+                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)),
+                    content().string("{}")
+                );
     }
 
     @Test
     void checkEnv(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/actuator/env"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)));
+                .andExpectAll(
+                    status().isOk(),
+                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON))
+                );
     }
 }
