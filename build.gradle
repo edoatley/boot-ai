@@ -21,7 +21,11 @@ repositories {
 
 dependencies {
     // Boot
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework', module: 'spring-context'
+    }
+
+    implementation "org.springframework:spring-context:$springContextVersion" // CVE-2022-22968
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // AI
@@ -47,6 +51,7 @@ dependencies {
 
     // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

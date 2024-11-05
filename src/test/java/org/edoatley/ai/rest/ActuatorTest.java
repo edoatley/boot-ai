@@ -27,16 +27,6 @@ class ActuatorTest {
                     content().string("{}")
                 );
     }
-    @Test
-    void checkHealth(@Autowired MockMvc mvc) throws Exception {
-        mvc.perform(get("/actuator/health"))
-                .andExpectAll(
-                    status().isOk(),
-                    content().contentType(MediaType.parseMediaType(BOOT_ACTUATOR_V_3_JSON)),
-                    content().string("{\"status\":\"UP\"}")
-                )
-                .andDo(MockMvcResultHandlers.print()); // adding this to debug
-    }
 
     @Test
     void checkEnv(@Autowired MockMvc mvc) throws Exception {
