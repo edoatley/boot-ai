@@ -49,9 +49,9 @@ dependencies {
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
-    // Tests
+    // Dev/Test
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
