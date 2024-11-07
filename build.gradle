@@ -49,9 +49,19 @@ dependencies {
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
+    // Security fixes
+    implementation("org.apache.commons:commons-compress") {
+        version {
+            strictly "1.26.0"
+        }
+        because "fixes CVE-2024-25710 (Denial of service caused by an infinite loop for a corrupted DUMP file)"
+    }
+
     // Dev/Test
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.xmlunit', module: 'xmlunit-core' because 'CVE-2024-31573 (XMLUnit for Java has Insecure Defaults when Processing XSLT Stylesheets)'
+    }
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
