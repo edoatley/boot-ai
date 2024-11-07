@@ -21,31 +21,25 @@ repositories {
 
 dependencies {
     // Boot
-    implementation ('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.springframework', module: 'spring-context'
-    }
-
-    implementation "org.springframework:spring-context:$springContextVersion" // CVE-2022-22968
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework', module: 'spring-context' because("vulnerable to CVE-2022-22968")
+    }
 
     // AI
     implementation platform("org.springframework.ai:spring-ai-bom:$springAIVersion")
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter' // when we use OpenAI
-    implementation 'org.springframework.ai:spring-ai-azure-openai-spring-boot-starter' // when we use Azure
-
-// start linux x86 workaround see https://github.com/spring-projects/spring-ai/issues/1371
+    implementation 'org.springframework.ai:spring-ai-azure-openai-spring-boot-starter'
     implementation('org.springframework.ai:spring-ai-transformers-spring-boot-starter') {
         exclude group: 'ai.djl.pytorch', module: 'pytorch-engine'
         exclude group: 'ai.djl', module: 'api'
         exclude group: 'ai.djl', module: 'model-zoo'
         exclude group: 'ai.djl.huggingface', module: 'tokenizers'
+        because("Do not work on MacOS linux x86 - see https://github.com/spring-projects/spring-ai/issues/1371")
     }
-    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"
-    implementation "ai.djl:api:$djlVersion"
-    implementation "ai.djl:model-zoo:$djlVersion"
-    implementation "ai.djl.huggingface:tokenizers:$djlVersion"
-// end workaround
-
+    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion" because("Work on MacOS linux x86")
+    implementation "ai.djl:api:$djlVersion" because("Work on MacOS linux x86")
+    implementation "ai.djl:model-zoo:$djlVersion" because("Work on MacOS linux x86")
+    implementation "ai.djl.huggingface:tokenizers:$djlVersion" because("Work on MacOS linux x86")
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
@@ -55,6 +49,12 @@ dependencies {
             strictly "1.26.0"
         }
         because "fixes CVE-2024-25710 (Denial of service caused by an infinite loop for a corrupted DUMP file)"
+    }
+    implementation("org.springframework:spring-context") {
+        version {
+            strictly "$springContextVersion"
+        }
+        because("resolves CVE-2022-22968")
     }
 
     // Dev/Test

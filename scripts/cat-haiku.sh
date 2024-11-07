@@ -4,7 +4,8 @@ QUESTION=${1:-"What is a broker in Kafka?"}
 HOST="localhost"
 PORT="8080"
 SCHEME="http"
-APIPATH="rag/chat"
+APIPATH="ai/cathaiku"
+
 url="$SCHEME://$HOST:$PORT/$APIPATH"
 
-fold -w 80 -s <<< $(curl -s -G "$url" --data-urlencode "query=$QUESTION" | jq -r .answer)
+curl -s "$url" | jq -r '.poem'

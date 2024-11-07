@@ -30,7 +30,7 @@ public class DataLoaderService implements CommandLineRunner {
     }
 
     public void run(String... args) {
-        for (var pdfName : this.ragData.getResources()) {
+        for (var pdfName : this.ragData.getPdfResources()) {
             Resource pdf = this.loader.getResource(pdfName);
             processPdfResource(pdf);
         }
