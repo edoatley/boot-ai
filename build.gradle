@@ -70,3 +70,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootBuildImage {
+    imageName = "$dockerImageName:latest"
+    cleanCache = true  // This forces a clean build
+}
