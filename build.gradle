@@ -43,6 +43,8 @@ dependencies {
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
+    implementation 'io.netty:netty-tcnative-boringssl-static:2.0.65.Final'
+
     // Security fixes
     implementation("org.apache.commons:commons-compress") {
         version {

@@ -7,4 +7,6 @@ SCHEME="http"
 APIPATH="rag/chat"
 url="$SCHEME://$HOST:$PORT/$APIPATH"
 
+echo ""
+
 fold -w 80 -s <<< $(curl -s -G "$url" --data-urlencode "query=$QUESTION" | jq -r .answer)

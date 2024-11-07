@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-QUESTION=${1:-"What is a broker in Kafka?"}
 HOST="localhost"
 PORT="8080"
 SCHEME="http"
-APIPATH="ai/cathaiku"
+API_PATH="ai/cathaiku"
 
-url="$SCHEME://$HOST:$PORT/$APIPATH"
+url="$SCHEME://$HOST:$PORT/$API_PATH"
+
+echo ""
 
 curl -s "$url" | jq -r '.poem'
