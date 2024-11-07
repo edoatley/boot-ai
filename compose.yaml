@@ -1,0 +1,8 @@
+services:
+  cache:
+    image: redis/redis-stack:latest
+    hostname: redis
+    restart: always
+    ports:
+      - '6379:6379'
+      - '8001:8001'
