@@ -41,7 +41,7 @@ dependencies {
     implementation 'org.springframework.ai:spring-ai-tika-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
-    implementation 'io.netty:netty-tcnative-boringssl-static:2.0.65.Final'
+    implementation 'io.netty:netty-tcnative-boringssl-static:2.0.69.Final'
 
     // Dev/Test
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
