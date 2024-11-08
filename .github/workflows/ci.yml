@@ -37,8 +37,13 @@ jobs:
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
 
-  dependency-submission:
+      - name: Publish SpotBugs Report
+        uses: jwgmeligmeyling/spotbugs-github-action@v1.2
+        if: success() || failure()
+        with:
+          path: '**/build/spotbugs/main.xml'
 
+  dependency-submission:
     runs-on: ubuntu-latest
     permissions:
       contents: write

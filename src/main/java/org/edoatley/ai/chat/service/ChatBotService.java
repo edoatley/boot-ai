@@ -33,6 +33,7 @@ public class ChatBotService {
         log.info("Calling chat()");
         List<Document> context = dataRetrievalService.searchData(query);
         log.info("Calling chat() found {} documents", context.size());
+        context.forEach(d -> log.debug("   Document: {}, with content: {}", d.getMetadata().get("source"), d.getContent()));
         return chatClient.call(createPrompt(query, context));
     }
 
