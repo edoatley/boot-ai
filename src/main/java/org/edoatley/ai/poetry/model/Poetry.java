@@ -8,5 +8,4 @@ import lombok.RequiredArgsConstructor;
 public class Poetry {
     private final String request;
     private final String poem;
-
 }

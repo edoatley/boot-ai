@@ -22,9 +22,7 @@ repositories {
 dependencies {
     // Boot
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation ('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.springframework', module: 'spring-context' because("vulnerable to CVE-2022-22968")
-    }
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // AI
     implementation platform("org.springframework.ai:spring-ai-bom:$springAIVersion")
@@ -41,23 +39,10 @@ dependencies {
     implementation "ai.djl:model-zoo:$djlVersion" because("Work on MacOS linux x86")
     implementation "ai.djl.huggingface:tokenizers:$djlVersion" because("Work on MacOS linux x86")
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+    implementation 'org.springframework.ai:spring-ai-tika-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
 
     implementation 'io.netty:netty-tcnative-boringssl-static:2.0.65.Final'
-
-    // Security fixes
-    implementation("org.apache.commons:commons-compress") {
-        version {
-            strictly "1.26.0"
-        }
-        because "fixes CVE-2024-25710 (Denial of service caused by an infinite loop for a corrupted DUMP file)"
-    }
-    implementation("org.springframework:spring-context") {
-        version {
-            strictly "$springContextVersion"
-        }
-        because("resolves CVE-2022-22968")
-    }
 
     // Dev/Test
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
@@ -65,6 +50,7 @@ dependencies {
         exclude group: 'org.xmlunit', module: 'xmlunit-core' because 'CVE-2024-31573 (XMLUnit for Java has Insecure Defaults when Processing XSLT Stylesheets)'
     }
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 test {
@@ -73,5 +59,4 @@ test {
 
 bootBuildImage {
     imageName = "$dockerImageName:latest"
-    cleanCache = true  // This forces a clean build
 }

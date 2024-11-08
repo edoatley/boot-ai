@@ -14,8 +14,13 @@ import java.util.List;
 @ConfigurationProperties(prefix = "rag.data")
 public class RagDataConfiguration {
     private List<String> pdfResources;
+    private List<String> webResources;
+    private List<String> otherResources;
 
     public RagDataConfiguration() {
         pdfResources = new ArrayList<>();
+        webResources = new ArrayList<>();
+        otherResources = new ArrayList<>();
     }
+
 }

@@ -2,7 +2,6 @@ package org.edoatley.ai.poetry.service;
 
 import org.edoatley.ai.poetry.model.Poetry;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +13,6 @@ public class PoetryServiceImpl implements PoetryService {
 
     private final ChatClient chatClient;
 
-    @Autowired
     public PoetryServiceImpl(ChatClient chatClient) {
         this.chatClient = chatClient;
     }
