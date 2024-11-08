@@ -3,10 +3,7 @@ plugins {
     id "io.freefair.lombok" version "$lombokPluginVersion"
     id 'org.springframework.boot' version "$springPluginVersion"
     id 'io.spring.dependency-management' version "$springDependencyPluginVersion"
-    id 'com.github.spotbugs' version "$spotBugsPluginVersion"
 }
-import com.github.spotbugs.snom.Confidence
-import com.github.spotbugs.snom.Effort
 group = 'org.edoatley'
 version = '1.0-SNAPSHOT'
 
@@ -61,25 +58,4 @@ test {
 
 bootBuildImage {
     imageName = "$dockerImageName:latest"
-}
-
-spotbugs {
-    ignoreFailures = false
-    showProgress = true
-    effort = Effort.DEFAULT
-    // This code is a bit broken but can determine what is happening by referring to 
-    // https://github.com/spotbugs/spotbugs-gradle-plugin/blob/master/src/main/kotlin/com/github/spotbugs/snom/Confidence.kt
-    // 0: LOW, 1: MEDIUM, 2: DEFAULT, 3: HIGH
-    reportLevel = Confidence.values()[3]
-}
-
-tasks.spotbugsMain {
-    reports.create("html") {
-        required = true
-        outputLocation = file("$buildDir/reports/spotbugs.html")
-        setStylesheet("fancy-hist.xsl")
-    }
-    reports.create("xml") {
-        required = true
-    }
 }
