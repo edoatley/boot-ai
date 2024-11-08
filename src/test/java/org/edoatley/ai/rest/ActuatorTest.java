@@ -2,8 +2,6 @@ package org.edoatley.ai.rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -11,9 +9,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class ActuatorTest {
+import org.edoatley.ai.AbstractIntegrationTest;
+
+class ActuatorTest extends AbstractIntegrationTest {
 
     public static final String BOOT_ACTUATOR_V_3_JSON = "application/vnd.spring-boot.actuator.v3+json";
 

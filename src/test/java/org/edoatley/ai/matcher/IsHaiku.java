@@ -1,4 +1,4 @@
-package org.edoatley.ai;
+package org.edoatley.ai.matcher;
 
 import org.assertj.core.util.Strings;
 import org.hamcrest.Description;

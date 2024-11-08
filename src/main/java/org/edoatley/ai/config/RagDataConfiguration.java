@@ -13,11 +13,14 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "rag.data")
 public class RagDataConfiguration {
-    private List<String> resources;
-    private String test;
+    private List<String> pdfResources;
+    private List<String> webResources;
+    private List<String> otherResources;
 
     public RagDataConfiguration() {
-        resources = new ArrayList<>();
-        test = "initial";
+        pdfResources = new ArrayList<>();
+        webResources = new ArrayList<>();
+        otherResources = new ArrayList<>();
     }
+
 }

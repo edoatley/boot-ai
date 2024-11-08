@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +24,6 @@ public class ChatBotService {
     private final ChatModel chatClient;
     private final DataRetrievalService dataRetrievalService;
 
-    @Autowired
     public ChatBotService(ChatModel chatModel, DataRetrievalService dataRetrievalService) {
           this.chatClient = chatModel;
           this.dataRetrievalService = dataRetrievalService;
@@ -35,6 +33,7 @@ public class ChatBotService {
         log.info("Calling chat()");
         List<Document> context = dataRetrievalService.searchData(query);
         log.info("Calling chat() found {} documents", context.size());
+        context.forEach(d -> log.debug("   Document: {}, with content: {}", d.getMetadata().get("source"), d.getContent()));
         return chatClient.call(createPrompt(query, context));
     }
 
