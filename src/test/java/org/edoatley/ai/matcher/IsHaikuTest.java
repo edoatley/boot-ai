@@ -10,26 +10,29 @@ class IsHaikuTest {
 
     @Test
     void shouldMatchValidHaiku() {
-        String haiku = "Cat on windowsill\n" +
-                      "Watching birds fly past slowly\n" +
-                      "Dreams of catching them";
+        String haiku = """
+                Cat on windowsill
+                Watching birds fly past slowly
+                Dreams of catching them""";
         
         assertThat(haiku, isHaiku());
     }
 
     @Test
     void shouldNotMatchWhenDoesNotStartWithCat() {
-        String notHaiku = "Dog on windowsill\n" +
-                         "Watching birds fly past slowly\n" +
-                         "Dreams of catching them";
+        String notHaiku = """
+                Dog on windowsill
+                Watching birds fly past slowly
+                Dreams of catching them""";
         
         assertThat(notHaiku, not(isHaiku()));
     }
 
     @Test
     void shouldNotMatchWhenNotThreeLines() {
-        String twoLines = "Cat on windowsill\n" +
-                         "Watching birds fly past slowly";
+        String twoLines = """
+                Cat on windowsill
+                Watching birds fly past slowly""";
         
         assertThat(twoLines, not(isHaiku()));
     }

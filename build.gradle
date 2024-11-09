@@ -4,6 +4,7 @@ plugins {
     id 'org.springframework.boot' version "$springPluginVersion"
     id 'io.spring.dependency-management' version "$springDependencyPluginVersion"
 }
+
 group = 'org.edoatley'
 version = '1.0-SNAPSHOT'
 
@@ -33,15 +34,28 @@ dependencies {
         exclude group: 'ai.djl.huggingface', module: 'tokenizers'
         because("Do not work on MacOS linux x86 - see https://github.com/spring-projects/spring-ai/issues/1371")
     }
-    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion" because("Work on MacOS linux x86")
-    implementation "ai.djl:api:$djlVersion" because("Work on MacOS linux x86")
-    implementation "ai.djl:model-zoo:$djlVersion" because("Work on MacOS linux x86")
-    implementation "ai.djl.huggingface:tokenizers:$djlVersion" because("Work on MacOS linux x86")
+ 
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-tika-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
-
-    implementation 'io.netty:netty-tcnative-boringssl-static:2.0.69.Final'
+    
+    // Security / Compatibility fixes
+    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"  because("Work on MacOS linux x86")
+    implementation "ai.djl:api:$djlVersion"                     because("Work on MacOS linux x86")
+    implementation "ai.djl:model-zoo:$djlVersion"               because("Work on MacOS linux x86")
+    implementation "ai.djl.huggingface:tokenizers:$djlVersion"  because("Work on MacOS linux x86")
+    implementation("io.netty:netty-tcnative-boringssl-static") {
+        version {
+            strictly "2.0.69.Final"
+        }
+        because "Had issues with the version specified in the Spring AI BOM"
+    }
+    implementation("org.apache.commons:commons-compress") {
+        version {
+            strictly "1.26.0"
+        }
+        because "fixes CVE-2024-25710 (Denial of service caused by an infinite loop for a corrupted DUMP file)"
+    }
 
     // Dev/Test
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
