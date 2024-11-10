@@ -1,4 +1,4 @@
-package org.edoatley.ai.hello.rest;
+package org.edoatley.ai.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

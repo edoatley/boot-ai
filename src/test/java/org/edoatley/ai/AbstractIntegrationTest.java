@@ -1,11 +1,11 @@
 package org.edoatley.ai;
 
-import org.edoatley.ai.poetry.model.Poetry;
-import org.edoatley.ai.poetry.service.PoetryService;
-import org.edoatley.ai.poetry.service.PoetryServiceImpl;
-import org.edoatley.ai.rag.loaders.impl.PdfDataLoaderService;
-import org.edoatley.ai.rag.loaders.impl.TikaDocumentDataLoaderService;
-import org.edoatley.ai.rag.loaders.impl.WebDataLoader;
+import org.edoatley.ai.rest.model.Poetry;
+import org.edoatley.ai.service.poetry.PoetryService;
+import org.edoatley.ai.service.poetry.PoetryServiceImpl;
+import org.edoatley.ai.service.rag.loaders.impl.PdfDataLoaderService;
+import org.edoatley.ai.service.rag.loaders.impl.TikaDocumentDataLoaderService;
+import org.edoatley.ai.service.rag.loaders.impl.WebDataLoader;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.vectorstore.VectorStore;

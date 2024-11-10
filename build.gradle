@@ -38,7 +38,8 @@ dependencies {
     implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
     implementation 'org.springframework.ai:spring-ai-tika-document-reader'
     implementation 'org.springframework.ai:spring-ai-redis-store-spring-boot-starter'
-    
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
+   
     // Security / Compatibility fixes
     implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"  because("Work on MacOS linux x86")
     implementation "ai.djl:api:$djlVersion"                     because("Work on MacOS linux x86")
@@ -52,7 +53,7 @@ dependencies {
     }
     implementation("org.apache.commons:commons-compress") {
         version {
-            strictly "1.26.0"
+            strictly "1.26.2"
         }
         because "fixes CVE-2024-25710 (Denial of service caused by an infinite loop for a corrupted DUMP file)"
     }

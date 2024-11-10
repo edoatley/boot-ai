@@ -1,23 +1,22 @@
 package org.edoatley.ai.rest;
 
+import org.edoatley.ai.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.edoatley.ai.matcher.IsHaiku.isHaiku;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.edoatley.ai.AbstractIntegrationTest;
-
-class PoetryControllerTest extends AbstractIntegrationTest {
+class SummarizationControllerTest extends AbstractIntegrationTest {
 
     @Test
-    void generateHaiku(@Autowired MockMvc mvc) throws Exception {
-        mvc.perform(get("/api/ai/poetry/cathaiku"))
+    void shouldGenerateSummary(@Autowired MockMvc mvc) throws Exception {
+        mvc.perform(get("/api/ai/summarize")
+                .param("topic", "kafka"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.poem").value(isHaiku()));
+                .andExpect(jsonPath("$.topic").value("kafka"))
+                .andExpect(jsonPath("$.summary").exists());
     }
-
-}
+} 

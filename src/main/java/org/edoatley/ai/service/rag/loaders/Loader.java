@@ -1,4 +1,4 @@
-package org.edoatley.ai.rag.loaders;
+package org.edoatley.ai.service.rag.loaders;
 
 public interface Loader {
     void load();

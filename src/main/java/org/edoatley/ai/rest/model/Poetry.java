@@ -1,4 +1,4 @@
-package org.edoatley.ai.poetry.model;
+package org.edoatley.ai.rest.model;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

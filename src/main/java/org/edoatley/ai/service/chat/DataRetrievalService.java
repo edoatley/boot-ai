@@ -1,4 +1,4 @@
-package org.edoatley.ai.chat.service;
+package org.edoatley.ai.service.chat;
 
 import java.util.List;
 

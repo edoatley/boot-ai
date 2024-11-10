@@ -1,4 +1,4 @@
-package org.edoatley.ai.rag.loaders.impl;
+package org.edoatley.ai.service.rag.loaders.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 import org.edoatley.ai.config.RagDataConfiguration;
-import org.edoatley.ai.rag.loaders.Loader;
+import org.edoatley.ai.service.rag.loaders.Loader;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;

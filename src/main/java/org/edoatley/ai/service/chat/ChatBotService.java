@@ -1,4 +1,4 @@
-package org.edoatley.ai.chat.service;
+package org.edoatley.ai.service.chat;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;

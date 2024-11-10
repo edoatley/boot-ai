@@ -1,9 +1,9 @@
-package org.edoatley.ai.rag.loaders.impl;
+package org.edoatley.ai.service.rag.loaders.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.edoatley.ai.config.RagDataConfiguration;
-import org.edoatley.ai.rag.loaders.Loader;
+import org.edoatley.ai.service.rag.loaders.Loader;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TextSplitter;

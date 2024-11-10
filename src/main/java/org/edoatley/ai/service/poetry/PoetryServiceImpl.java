@@ -1,6 +1,6 @@
-package org.edoatley.ai.poetry.service;
+package org.edoatley.ai.service.poetry;
 
-import org.edoatley.ai.poetry.model.Poetry;
+import org.edoatley.ai.rest.model.Poetry;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 

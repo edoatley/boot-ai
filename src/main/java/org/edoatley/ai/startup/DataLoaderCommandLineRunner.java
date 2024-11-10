@@ -1,11 +1,12 @@
-package org.edoatley.ai.rag.loaders;
+package org.edoatley.ai.startup;
 
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.edoatley.ai.rag.loaders.impl.PdfDataLoaderService;
-import org.edoatley.ai.rag.loaders.impl.TikaDocumentDataLoaderService;
-import org.edoatley.ai.rag.loaders.impl.WebDataLoader;
+import org.edoatley.ai.service.rag.loaders.Loader;
+import org.edoatley.ai.service.rag.loaders.impl.PdfDataLoaderService;
+import org.edoatley.ai.service.rag.loaders.impl.TikaDocumentDataLoaderService;
+import org.edoatley.ai.service.rag.loaders.impl.WebDataLoader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
