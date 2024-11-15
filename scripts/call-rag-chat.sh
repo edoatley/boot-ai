@@ -4,7 +4,7 @@ QUESTION=${1:-"What is a broker in Kafka?"}
 HOST="localhost"
 PORT="8080"
 SCHEME="http"
-APIPATH="rag/chat"
+APIPATH="api/ai/rag/chat"
 url="$SCHEME://$HOST:$PORT/$APIPATH"
 
 echo ""

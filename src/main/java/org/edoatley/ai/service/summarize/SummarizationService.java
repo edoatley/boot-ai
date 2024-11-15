@@ -2,13 +2,18 @@ package org.edoatley.ai.service.summarize;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.edoatley.ai.rest.model.Summary;
+import org.edoatley.ai.rest.model.SummarySearch;
 import org.edoatley.ai.service.chat.DataRetrievalService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -33,13 +38,13 @@ public class SummarizationService {
         this.dataRetrievalService = dataRetrievalService;
     }
 
-    public String summarizeContent(String searchTopic) {
+    public SummarySearch summarizeContent(String searchTopic) {
         log.info("Generating summary for topic: {}", searchTopic);
         List<Document> relevantDocs = dataRetrievalService.searchData(searchTopic);
         log.info("Found {} relevant documents", relevantDocs.size());
         
         if (relevantDocs.isEmpty()) {
-            return "No relevant content found for the topic: " + searchTopic;
+            return new SummarySearch(false, null, "No relevant content found for the topic: " + searchTopic);
         }
 
         String combinedContent = relevantDocs.stream()
@@ -50,10 +55,39 @@ public class SummarizationService {
         return generateSummary(searchTopic, combinedContent);
     }
 
-    private String generateSummary(String topic, String content) {
+    private SummarySearch generateSummary(String topic, String content) {
         PromptTemplate promptTemplate = new PromptTemplate(SUMMARIZE_PROMPT);
         promptTemplate.add("topic", topic);
         promptTemplate.add("content", content);
-        return chatClient.prompt(promptTemplate.render()).call().content();
+        String summary = chatClient.prompt(promptTemplate.render()).call().content();
+        return new SummarySearch(true, formatSummary(summary, topic), null);
+    }
+
+    private Summary formatSummary(String summary, String topic){
+        // extract line 2 of the summary as the TLDR
+        // extract everything on line 4 until the line before one begining **3 trim of empty trailing line if present
+        // Capture each line after the 3** line and create a list with the text after each '- '
+        // return a new Summary object with the TLDR, the detailed summary and the key points
+        String[] lines = summary.replaceAll("\n\n", "\n").split("\n");
+        if(lines.length < 4) {
+            return new Summary(topic, "?", summary, List.of());
+        }
+
+        String tldr = lines[1].trim();
+        StringBuilder detailedSummary = new StringBuilder();
+        int titleThree = -1;
+        for(int i = 3; i < lines.length; i++) {
+            if (lines[i].startsWith("**")) {
+                titleThree = i + 1;
+                break;
+            }
+            detailedSummary.append(lines[i]).append("\n\n");
+        }
+        String[] rawBullets = Arrays.copyOfRange(lines, titleThree, lines.length);
+        List<String> keyPoints = Arrays.stream(rawBullets)
+                .map(l -> l.replace("- ", ""))
+                .toList();
+        return new Summary(topic, tldr, detailedSummary.toString().trim(), keyPoints);
+
     }
 } 

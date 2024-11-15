@@ -3,7 +3,7 @@
 HOST="localhost"
 PORT="8080"
 SCHEME="http"
-API_PATH="ai/cathaiku"
+API_PATH="api/ai/poetry/cathaiku"
 
 url="$SCHEME://$HOST:$PORT/$API_PATH"
 
